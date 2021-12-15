@@ -42,7 +42,9 @@ table:
 |----|-----|
 |Orage|1$/ponds|
 
-I am a [link](https://github/wangpin34/wxformmat)
+I am a [link0](https://github/wangpin34/wxformmat)
+I am another [link1](https://github/wangpin34/wxformmat?v=1)
+I am another [link2](https://github/wangpin34/wxformmat) but using the same target with link0
 
 ![alt text](https://github/wangpin34/wxformmat)
 `

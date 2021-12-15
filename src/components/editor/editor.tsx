@@ -1,5 +1,4 @@
 /** @jsxImportSource theme-ui */
-import { ThemeProvider } from 'theme-ui'
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { useRecoilState } from 'recoil'
 //@ts-ignore
@@ -7,12 +6,14 @@ import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/markdown/markdown.js'
 import { markdownState } from 'states/markdown'
+import { EditorTheme } from 'states/preferences/editor'
 
 interface Props {
-  theme?: string
+  theme: EditorTheme
+  fontSize?: number
 }
 
-function Editor({ theme }: Props) {
+function Editor({ theme, fontSize = 14 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<any>(null)
   const [markdown, setMarkdown] = useRecoilState(markdownState)
@@ -45,24 +46,23 @@ function Editor({ theme }: Props) {
   }, [ref, handleChange, initialValue])
 
   useEffect(() => {
-    if (editor) {
+    if (editor && theme) {
       editor?.setOption('theme', theme)
       require(`codemirror/theme/${theme}.css`)
     }
   }, [editor, theme])
 
   return (
-    <ThemeProvider theme={{}}>
-      <div
-        ref={ref}
-        className="h-screen max-h-screen box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"
-        sx={{
-          '& > .CodeMirror': {
-            height: '100%',
-          },
-        }}
-      ></div>
-    </ThemeProvider>
+    <div
+      ref={ref}
+      className="h-screen max-h-screen box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"
+      sx={{
+        fontSize: fontSize,
+        '& > .CodeMirror': {
+          height: '100%',
+        },
+      }}
+    ></div>
   )
 }
 

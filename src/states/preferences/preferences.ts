@@ -1,9 +1,26 @@
 import { atom, selector } from 'recoil'
-import {} from 'lodash'
-import editorThemes, { Theme } from 'constants/editorThemes'
+import editorThemes from 'constants/editorThemes'
+
+type Themes = typeof editorThemes
+type Mapper = {
+  [key in Themes[number]]: string
+}
+export type EditorTheme = keyof Mapper
+
+export const availableThemesState = atom<typeof editorThemes>({
+  key: 'availableThemesState',
+  default: editorThemes,
+})
+
+const defaultTheme: EditorTheme = 'idea'
+
+export const editorThemeState = atom<EditorTheme>({
+  key: 'editorThemeState',
+  default: defaultTheme,
+})
 
 interface EditorPreferences {
-  theme: Theme
+  theme: EditorTheme
   fontSize: number
 }
 
@@ -58,7 +75,7 @@ interface RendererTheme {
   }
 }
 
-const defaulttheme = {
+const defaultRendererTheme = {
   fonts: {
     head1: createTextPreferences('140%', 1),
     head2: createTextPreferences('120%', 1.5, FontWeight.Bold),
@@ -72,18 +89,10 @@ interface RendererPreferences {
 }
 
 const defaultRenderPreferences: RendererPreferences = {
-  theme: defaulttheme,
+  theme: defaultRendererTheme,
 }
 
 export const rendererPreferencesState = atom<RendererPreferences>({
   key: 'rendererPreferencesState',
   default: defaultRenderPreferences,
-})
-
-export const rendererThemeState = selector<RendererTheme>({
-  key: 'rendererPreferencesState',
-  get: ({ get }) => {
-    const preferences = get(rendererPreferencesState)
-    return { ...preferences.theme, ...preferences.config }
-  },
 })

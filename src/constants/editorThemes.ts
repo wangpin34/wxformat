@@ -68,10 +68,4 @@ const editorThemes = [
   'zenburn',
 ] as const
 
-type Themes = typeof editorThemes
-type Mapper = {
-  [key in Themes[number]]: string
-}
-export type Theme = keyof Mapper
-
 export default editorThemes

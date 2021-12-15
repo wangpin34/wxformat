@@ -17,7 +17,10 @@ const linkRegExp = /(?<!!)\[([^\[\]]+)\]\(([^\(\)]*)\)/gi
 export const linksState = selector<LinkProps[]>({
   key: 'linksState',
   get: ({ get }) => {
-    return Array.from(get(markdownState).matchAll(linkRegExp)).map(([, text, href]) => ({ text, href }))
+    const array = Array.from(get(markdownState).matchAll(linkRegExp)).map(([, text, href]) => ({ text, href }))
+    const indexMap = new Map<string, number>()
+    array.map(({ href }, index) => ({ href, index })).forEach(({ href, index }) => indexMap.has(href) || indexMap.set(href, index))
+    return array.filter(({ href }, index) => indexMap.get(href) === index)
   },
 })
 
