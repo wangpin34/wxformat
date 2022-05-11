@@ -55,7 +55,7 @@ function Editor({ theme, fontSize = 14 }: Props) {
   return (
     <div
       ref={ref}
-      className="h-screen max-h-screen box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"
+      className="box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"
       sx={{
         fontSize: fontSize,
         '& > .CodeMirror': {

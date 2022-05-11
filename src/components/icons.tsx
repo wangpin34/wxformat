@@ -49,8 +49,12 @@ const Settings = ({ size = 24, color = '#5a6a7a' }) => (
   </svg>
 )
 
-function IconButton({ onClick, icon }: { onClick: MouseEventHandler<HTMLButtonElement>; icon: ReactElement }) {
-  return <button onClick={onClick}>{icon}</button>
+function IconButton({ onClick, icon, ...rest }: { onClick: MouseEventHandler<HTMLButtonElement>; icon: ReactElement; [p: string]: any }) {
+  return (
+    <button onClick={onClick} {...rest}>
+      {icon}
+    </button>
+  )
 }
 
 export { Copy, DownloadCloud, Settings, IconButton }

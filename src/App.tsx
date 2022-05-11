@@ -7,12 +7,12 @@ import Editor from 'components/editor'
 
 function App() {
   return (
-    <div>
-      <div id="preferences">
+    <div className="h-screen max-h-screen">
+      <div id="preferences" className="fixed top-0 left-0 h-10 bg-slate-500">
         <Preperences />
       </div>
 
-      <div className="xl:container mx-auto p-2 grid grid-cols-2 gap-8">
+      <div className="h-screen max-h-screen pt-10 xl:container mx-auto p-2 grid grid-cols-2 gap-8">
         <Editor />
         <Renderer />
       </div>
