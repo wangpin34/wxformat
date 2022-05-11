@@ -58,7 +58,7 @@ function createTextPreferences(
   return { size, lineHeight, weight, color } as TextPreferences
 }
 
-interface RendererTheme {
+interface RendererPreferences {
   fonts?: {
     head1?: TextPreferences
     head2?: TextPreferences
@@ -75,7 +75,7 @@ interface RendererTheme {
   }
 }
 
-const defaultRendererTheme = {
+const defaultRendererTheme: RendererPreferences = {
   fonts: {
     head1: createTextPreferences('140%', 1),
     head2: createTextPreferences('120%', 1.5, FontWeight.Bold),
@@ -83,16 +83,16 @@ const defaultRendererTheme = {
   },
 }
 
-interface RendererPreferences {
-  theme?: RendererTheme
-  config?: RendererTheme
+interface RendererSettings {
+  theme: RendererPreferences
+  config?: RendererPreferences
 }
 
-const defaultRenderPreferences: RendererPreferences = {
+const defaultRenderSettings: RendererSettings = {
   theme: defaultRendererTheme,
 }
 
-export const rendererPreferencesState = atom<RendererPreferences>({
-  key: 'rendererPreferencesState',
-  default: defaultRenderPreferences,
+export const rendererSettingsState = atom<RendererSettings>({
+  key: 'rendererSettingsState',
+  default: defaultRenderSettings,
 })
