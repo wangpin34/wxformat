@@ -23,4 +23,4 @@ jobs:
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/pengson-wang/wxformat-web.git
           npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>" -a -m "release" -b main
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.WXFORMAT_ORG_WRITE}}
