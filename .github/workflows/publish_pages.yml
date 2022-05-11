@@ -1,4 +1,4 @@
-name: Create Weekly Note
+name: Publish to github pages at pengson-wang/wxformat-web
 
 on:
   release:
