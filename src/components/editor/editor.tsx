@@ -17,7 +17,7 @@ function Editor({ theme, fontSize = 14 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<any>(null)
   const [markdown, setMarkdown] = useRecoilState(markdownState)
-  const initialValue = useMemo(() => markdown, [])
+  const [initialValue] = useState(markdown)
   const handleChange = useCallback(
     (instance) => {
       setMarkdown(instance.getValue())

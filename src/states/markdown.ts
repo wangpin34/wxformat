@@ -12,6 +12,7 @@ interface LinkProps {
   href: string
 }
 
+// eslint-disable-next-line no-useless-escape
 const linkRegExp = /(?<!!)\[([^\[\]]+)\]\(([^\(\)]*)\)/gi
 
 export const linksState = selector<LinkProps[]>({

@@ -20,7 +20,7 @@ function useContainer() {
         }
       }
     }
-  }, [])
+  }, [container])
 
   return container
 }

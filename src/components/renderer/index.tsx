@@ -1,12 +1,11 @@
 import { useMemo, useState, useCallback, MouseEventHandler, useRef, useEffect } from 'react'
 import { render } from 'react-dom'
 import Renderer from './renderer'
-import { useRecoilValue, RecoilRoot } from 'recoil'
-import { markdownState } from 'states/markdown'
+import { useRecoilValue } from 'recoil'
 import copyToClipboard from 'utils/copy-to-clipboard'
 import { ActionBar } from '../action'
-import { Copy, DownloadCloud, Settings, IconButton } from '../icons'
-import Popup, { ControlledPopup } from 'components/popup/popup'
+import { Copy, Settings, IconButton } from '../icons'
+import { ControlledPopup } from 'components/popup/popup'
 import SettingsPanel from 'components/settings'
 import { rendererState as rendererIDState } from 'states/id'
 
@@ -34,7 +33,6 @@ function Shadow(props: ShadowProps) {
 }
 
 export default function ConfiguredRenderer() {
-  const ref = useRef<HTMLDivElement>(null)
   const id = useRecoilValue(rendererIDState)
   const handleCopy = useCallback<MouseEventHandler<HTMLButtonElement>>(
     (e) => {
@@ -49,7 +47,7 @@ export default function ConfiguredRenderer() {
   const handleClose = useCallback(() => setSettingsOpened(false), [])
   const handleOpen = useCallback(() => setSettingsOpened(true), [])
   const SettingsPanelPopup = useMemo(
-    () => <ControlledPopup opened={settingsOpened} handleClose={handleClose} render={(props) => <SettingsPanel />} />,
+    () => <ControlledPopup opened={settingsOpened} handleClose={handleClose} render={() => <SettingsPanel />} />,
     [settingsOpened, handleClose]
   )
 
