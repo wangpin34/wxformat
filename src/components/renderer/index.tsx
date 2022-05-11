@@ -1,5 +1,4 @@
-import { useMemo, useState, useCallback, MouseEventHandler, useRef, useEffect } from 'react'
-import { render } from 'react-dom'
+import { useMemo, useState, useCallback, MouseEventHandler } from 'react'
 import Renderer from './renderer'
 import { useRecoilValue } from 'recoil'
 import copyToClipboard from 'utils/copy-to-clipboard'
@@ -9,28 +8,28 @@ import { ControlledPopup } from 'components/popup/popup'
 import SettingsPanel from 'components/settings'
 import { rendererState as rendererIDState } from 'states/id'
 
-interface ShadowProps {
-  children: any
-  [p: string]: any
-}
-function Shadow(props: ShadowProps) {
-  const ref = useCallback((node: HTMLDivElement | null) => {
-    if (node !== null) {
-      const shadow = node.attachShadow({ mode: 'open' })
-      const style = document.createElement('style')
-      const styleContent = `
-      :host {
-        all: initial;
-      }
-      `
-      style.type = 'text/css'
-      style.appendChild(document.createTextNode(styleContent))
-      render(props.children, shadow)
-      shadow.appendChild(style)
-    }
-  }, [])
-  return <div ref={ref} />
-}
+// interface ShadowProps {
+//   children: any
+//   [p: string]: any
+// }
+// function Shadow(props: ShadowProps) {
+//   const ref = useCallback((node: HTMLDivElement | null) => {
+//     if (node !== null) {
+//       const shadow = node.attachShadow({ mode: 'open' })
+//       const style = document.createElement('style')
+//       const styleContent = `
+//       :host {
+//         all: initial;
+//       }
+//       `
+//       style.type = 'text/css'
+//       style.appendChild(document.createTextNode(styleContent))
+//       render(props.children, shadow)
+//       shadow.appendChild(style)
+//     }
+//   }, [])
+//   return <div ref={ref} />
+// }
 
 export default function ConfiguredRenderer() {
   const id = useRecoilValue(rendererIDState)

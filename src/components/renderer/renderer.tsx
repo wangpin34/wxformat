@@ -1,5 +1,4 @@
 /** @jsxImportSource theme-ui */
-import { ThemeProvider } from 'theme-ui'
 import React, { useMemo } from 'react'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
@@ -29,11 +28,11 @@ const processor = unified()
     components: { a: A, blockquote: Blockquote, pre: CodeBlock, code: InlineCode, h1: H1, h2: H2, p: P, table: Table, ol: Ol, ul: Ul },
   })
 
-const theme = {
-  fonts: {
-    body: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif",
-  },
-}
+// const theme = {
+//   fonts: {
+//     body: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif",
+//   },
+// }
 
 export default function Renderer() {
   const markdown = useRecoilValue(markdownState)
