@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   babel: {
-    plugins: ['@babel/plugin-syntax-bigint'],
+    plugins: ['@babel/plugin-syntax-bigint', ['babel-plugin-styled-components', { ssr: false }]],
   },
   plugins: [
     {

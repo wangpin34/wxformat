@@ -1,8 +1,13 @@
-import { SxProps } from '@theme-ui/core'
+import { CSSProp } from 'styled-components'
 
-declare global {
-  namespace JSX {
-    // tslint:disable-next-line: no-empty-interface
-    interface IntrinsicAttributes extends SxProps {}
+declare module 'styled-components' {
+  export interface DefaultTheme {
+    // Your theme stuff here
+  }
+}
+
+declare module 'react' {
+  interface Attributes {
+    css?: CSSProp
   }
 }
