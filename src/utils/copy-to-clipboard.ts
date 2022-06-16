@@ -9,8 +9,8 @@
  * @2021-12-15. Pengson Wang <guyusay@gmail.com>
  *
  */
-async function copyToClipboard(editableElement: HTMLElement): Promise<boolean> {
-  if (navigator.clipboard) {
+async function copyToClipboard(editableElement: HTMLElement, useExecCmd = false): Promise<boolean> {
+  if (!useExecCmd && navigator.clipboard) {
     const html = editableElement.innerHTML
     const blobInput = new Blob([html], { type: 'text/html' })
     //@ts-ignore
@@ -27,6 +27,10 @@ async function copyToClipboard(editableElement: HTMLElement): Promise<boolean> {
   select?.removeAllRanges()
   select?.addRange(range)
   document.execCommand(`copy`)
+  setTimeout(() => {
+    select?.removeAllRanges()
+  })
+
   return Promise.resolve(true)
 }
 
