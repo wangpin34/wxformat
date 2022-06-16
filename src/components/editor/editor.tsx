@@ -1,4 +1,3 @@
-/** @jsxImportSource theme-ui */
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 //@ts-ignore
@@ -56,12 +55,12 @@ function Editor({ theme, fontSize = 14 }: Props) {
     <div
       ref={ref}
       className="box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"
-      sx={{
-        fontSize: fontSize,
-        '& > .CodeMirror': {
-          height: '100%',
-        },
-      }}
+      css={`
+        font-size: ${fontSize}px;
+        & > .CodeMirror {
+          height: 100%;
+        }
+      `}
     ></div>
   )
 }

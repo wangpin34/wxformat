@@ -20,7 +20,14 @@ export default function References() {
       >
         {referLinks.map(({ text, href }, index) => (
           <React.Fragment key={href}>
-            <code style={{ fontSize: '90%', opacity: 0.6 }}>[{index + 1}]</code>
+            <code
+              css={`
+                font-size: 90%;
+                opacity: 0.6;
+              `}
+            >
+              [{index + 1}]
+            </code>
             &nbsp;{text}&nbsp;:
             <br />
             <i>{href}</i>

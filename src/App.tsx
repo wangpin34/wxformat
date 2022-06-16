@@ -1,6 +1,3 @@
-/** @jsxImportSource theme-ui */
-import React from 'react'
-//@ts-ignore
 import Renderer from 'components/renderer'
 import Preperences from 'components/preferences'
 import Editor from 'components/editor'

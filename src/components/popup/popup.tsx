@@ -1,4 +1,3 @@
-/** @jsxImportSource theme-ui */
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { Transition } from 'react-transition-group'
 import Portal from './portal'
@@ -33,31 +32,31 @@ export function ControlledPopup({ render, opened, handleClose }: ControlledProps
       <React.Fragment>
         <div
           onClick={handleClose}
-          sx={{
-            display: opened ? 'initial' : 'none',
-            backgroundColor: 'gray',
-            opacity: '0.3',
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            width: '100%',
-            height: '100%',
-          }}
+          css={`
+            display: ${opened ? 'initial' : 'none'};
+            backgroundcolor: gray;
+            opacity: 0.3;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          `}
         />
         <Transition in={Boolean(opened)} timeout={50}>
           {(state: State) => (
             <div
-              sx={{
-                display: state === 'entered' ? 'initial' : 'none',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                backgroundColor: 'white',
-                position: 'fixed',
-                top: 80,
-                zIndex: '100',
-                width: 750,
-                height: '68vh',
-              }}
+            // sx={{
+            //   display: state === 'entered' ? 'initial' : 'none',
+            //   left: '50%',
+            //   transform: 'translateX(-50%)',
+            //   backgroundColor: 'white',
+            //   position: 'fixed',
+            //   top: 80,
+            //   zIndex: '100',
+            //   width: 750,
+            //   height: '68vh',
+            // }}
             >
               {render({ state, handleClose })}
             </div>

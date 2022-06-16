@@ -1,4 +1,3 @@
-/** @jsxImportSource theme-ui */
 import React, { Component } from 'react'
 
 interface Props {

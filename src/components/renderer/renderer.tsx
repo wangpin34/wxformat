@@ -1,4 +1,3 @@
-/** @jsxImportSource theme-ui */
 import React, { useMemo } from 'react'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'

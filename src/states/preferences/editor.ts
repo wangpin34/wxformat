@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import editorThemes from 'constants/editorThemes'
+import editorThemes, { defaultTheme } from 'constants/editorThemes'
 
 type Themes = typeof editorThemes
 type Mapper = {
@@ -14,7 +14,7 @@ export const availableThemesState = atom<typeof editorThemes>({
 
 export const editorThemeState = atom<EditorTheme>({
   key: 'editorThemeState',
-  default: editorThemes[0],
+  default: defaultTheme,
 })
 
 export const editorFontSizeState = atom<number>({

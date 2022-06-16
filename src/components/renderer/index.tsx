@@ -36,7 +36,7 @@ export default function ConfiguredRenderer() {
   const handleCopy = useCallback<MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>>(
     (e) => {
       if (document.querySelector(`#${id}`)) {
-        copyToClipboard(document.querySelector(`#${id}`) as HTMLElement)
+        copyToClipboard(document.querySelector(`#${id}`) as HTMLElement, true)
       }
     },
     [id]
