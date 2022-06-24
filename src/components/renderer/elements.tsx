@@ -6,7 +6,7 @@ import { referLinksState } from 'states/markdown'
 
 function useReferLinkIndex(href: string) {
   const links = useRecoilValue(referLinksState)
-  return links.findIndex((link) => link.href === href)
+  return links.findIndex(link => link.href === href)
 }
 
 function ReferLink({ children, href }: { children: any; href: string }) {
@@ -107,6 +107,8 @@ function A({ children, href }: ComponentProps & { href: string }) {
     <a
       href={href}
       title={children}
+      rel="noreferrer"
+      target="_blank"
       css={`
         text-align: left;
         color: #ff3502;
@@ -258,10 +260,10 @@ function Table({ children }: ComponentProps & { children: any[] }) {
     <table>
       {React.Children.map(
         children.find((child: any) => isTableHead(child)),
-        (child_thead) => (
+        child_thead => (
           <thead css={getStyle('thead')}>
             <tr>
-              {React.Children.map(child_thead.props.children[0].props.children, (child) => (
+              {React.Children.map(child_thead.props.children[0].props.children, child => (
                 <td css={getStyle('thead.tr.th')}>{child.props.children}</td>
               ))}
             </tr>
@@ -270,11 +272,11 @@ function Table({ children }: ComponentProps & { children: any[] }) {
       )}
       {React.Children.map(
         children.find((child: any) => isTableBody(child)),
-        (child_body) => (
+        child_body => (
           <tbody css={getStyle('tbody')}>
-            {React.Children.map(child_body.props.children, (tr) => (
+            {React.Children.map(child_body.props.children, tr => (
               <tr>
-                {React.Children.map(tr.props.children, (td) => (
+                {React.Children.map(tr.props.children, td => (
                   <td css={getStyle('tbody.tr.td')}>{td.props.children}</td>
                 ))}
               </tr>
@@ -287,7 +289,7 @@ function Table({ children }: ComponentProps & { children: any[] }) {
 }
 
 function getItems(children: any[]) {
-  return children.filter((child) => child.$$typeof === Symbol.for('react.element') && child.type === 'li')
+  return children.filter(child => child.$$typeof === Symbol.for('react.element') && child.type === 'li')
 }
 
 const listStyles = css`
@@ -308,7 +310,7 @@ function Ol({ children }: ComponentProps) {
         list-style: decimal;
       `}
     >
-      {React.Children.map(getItems(children), (child) => (
+      {React.Children.map(getItems(children), child => (
         <li
           key={child.props.children}
           {...child.props.children}
@@ -334,7 +336,7 @@ function Ul({ children }: ComponentProps) {
         list-style: initial;
       `}
     >
-      {React.Children.map(getItems(children), (child) => (
+      {React.Children.map(getItems(children), child => (
         <li
           key={child.props.children}
           {...child.props.children}
