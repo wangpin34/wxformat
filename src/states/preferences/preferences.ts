@@ -1,5 +1,5 @@
-import { atom, selector } from 'recoil'
 import editorThemes from 'constants/editorThemes'
+import { atom } from 'recoil'
 
 type Themes = typeof editorThemes
 type Mapper = {

@@ -1,10 +1,10 @@
-import React, { useCallback, useState, useMemo } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { editorThemeState, availableThemesState, EditorTheme, editorFontSizeState } from 'states/preferences/editor'
-import { ActionBar } from './action'
-import { Settings, IconButton } from './icons'
 import { ControlledPopup } from 'components/popup/popup'
 import SettingsPanel from 'components/settings'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { EditorTheme, availableThemesState, editorFontSizeState, editorThemeState } from 'states/preferences/editor'
+import { ActionBar } from './action'
+import { IconButton, Settings } from './icons'
 
 function Editor() {
   const availableThemes = useRecoilValue(availableThemesState)
@@ -21,14 +21,43 @@ function Editor() {
   return (
     <>
       <select value={theme} onChange={handleThemeChange}>
-        {availableThemes.map((theme) => (
+        {availableThemes.map(theme => (
           <option key={theme} value={theme}>
             {theme}
           </option>
         ))}
       </select>
       <label>Font Size</label>
-      <input type="number" value={fontSize} onChange={(e) => setFontSize(parseInt(e.target.value, 10))} />
+      <input type="number" value={fontSize} onChange={e => setFontSize(parseInt(e.target.value, 10))} />
+      <div className="dropdown m-10">
+        <label tabindex="0" className="btn m-1">
+          Click
+        </label>
+        <div tabindex="0" className="dropdown-content p-4 shadow bg-base-100 rounded-box">
+          <input type="text" placeholder="Search…" className="input input-sm input-bordered" />
+
+          <div className="h-4"></div>
+
+          <label className="label cursor-pointer">
+            <span className="label-text">Bread</span>
+            <input type="checkbox" checked className="checkbox" />
+          </label>
+
+          <label className="label cursor-pointer">
+            <span className="label-text">Milk</span>
+            <input type="checkbox" checked className="checkbox" />
+          </label>
+
+          <label className="label cursor-pointer">
+            <span className="label-text">Apples</span>
+            <input type="checkbox" checked className="checkbox" />
+          </label>
+
+          <div className="h-4"></div>
+
+          <button className="btn btn-block btn-sm">Delete selected</button>
+        </div>
+      </div>
     </>
   )
 }

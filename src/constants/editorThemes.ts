@@ -68,6 +68,6 @@ const editorThemes = [
   'zenburn',
 ] as const
 
-export const defaultTheme = 'xq-light'
+export const defaultTheme = 'material'
 
 export default editorThemes
