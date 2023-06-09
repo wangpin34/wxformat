@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactElement } from 'react'
+import { MouseEventHandler, ReactElement } from 'react'
 const Copy = ({ size = 24, color = '#5a6a7a' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

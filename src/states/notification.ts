@@ -1,5 +1,5 @@
-import { atom, useRecoilState, useSetRecoilState } from 'recoil'
-import { useCallback, useState, useEffect } from 'react'
+import { atom, useSetRecoilState } from 'recoil'
+import { useCallback } from 'react'
 import { nanoid } from 'nanoid'
 
 const DEFAULT_TIME_TO_DISS = 2000

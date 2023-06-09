@@ -164,23 +164,8 @@ function isTableHead(something: any) {
   return isReactElement(something) && something.type === 'thead'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function isTh(something: any) {
-  return isReactElement(something) && something.type === 'th'
-}
-
 function isTableBody(something: any) {
   return isReactElement(something) && something.type === 'tbody'
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function isTr(something: any) {
-  return isReactElement(something) && something.type === 'tr'
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function isTd(something: any) {
-  return isReactElement(something) && something.type === 'td'
 }
 
 const tableSegs = ['thead', 'tbody', 'tr', 'th', 'td']

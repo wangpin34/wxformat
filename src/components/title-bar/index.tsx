@@ -1,7 +1,7 @@
-import { useCallback, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { markdownState, initialMarkdownState } from 'states/markdown'
 import { useSetRecoilState, useRecoilValue } from 'recoil'
-import { notificationState, useAddNotification } from 'states/notification'
+import { useAddNotification } from 'states/notification'
 import { downloadText } from 'utils/download'
 
 function DownloadMarkdown() {
@@ -25,8 +25,9 @@ export default function TitleBar() {
     }
   }, [])
   const onImportMarkdown = useCallback(
-    e => {
-      const file = e.target.files[0]
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (!file) return
       const reader = new FileReader()
       reader.addEventListener(
         'load',

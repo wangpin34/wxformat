@@ -20,7 +20,7 @@ function Editor({ fontSize = 14 }: Props) {
   const [initialValue] = useState(initialMarkdown)
 
   const handleChange = useCallback(
-    (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChange) => {
+    (instance: CodeMirror.Editor) => {
       const next = instance.getDoc().getValue()
       setMarkdown(next)
     },

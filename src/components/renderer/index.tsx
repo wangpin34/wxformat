@@ -3,7 +3,7 @@ import Renderer from './renderer'
 import { useRecoilValue } from 'recoil'
 import copyToClipboard from 'utils/copy-to-clipboard'
 import { rendererState as rendererIDState } from 'states/id'
-import { notificationState, useAddNotification } from 'states/notification'
+import { useAddNotification } from 'states/notification'
 
 // interface ShadowProps {
 //   children: any
@@ -31,15 +31,12 @@ import { notificationState, useAddNotification } from 'states/notification'
 export default function RendererWrapper() {
   const addNotification = useAddNotification()
   const id = useRecoilValue(rendererIDState)
-  const handleCopy = useCallback<MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>>(
-    e => {
-      if (document.querySelector(`#${id}`)) {
-        copyToClipboard(document.querySelector(`#${id}`) as HTMLElement, true)
-        addNotification({ type: 'success', text: '复制成功, 请在公众号编辑器中粘贴查看' })
-      }
-    },
-    [id]
-  )
+  const handleCopy = useCallback<MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>>(() => {
+    if (document.querySelector(`#${id}`)) {
+      copyToClipboard(document.querySelector(`#${id}`) as HTMLElement, true)
+      addNotification({ type: 'success', text: '复制成功, 请在公众号编辑器中粘贴查看' })
+    }
+  }, [id])
 
   return (
     <div className="flex flex-col items-center overflow-y-auto">
