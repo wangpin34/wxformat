@@ -6,20 +6,23 @@ import svgrPlugin from 'vite-plugin-svgr'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: ['styled-components'],
+export default defineConfig(({ command }) => {
+  return {
+    base: command === 'serve' ? '/' : '/wxformat',
+    plugins: [
+      react({
+        babel: {
+          plugins: ['styled-components'],
+        },
+      }),
+      viteTsconfigPaths(),
+      svgrPlugin(),
+      dynamicImport(),
+    ],
+    build: {
+      rollupOptions: {
+        plugins: [dynamicImportVars()],
       },
-    }),
-    viteTsconfigPaths(),
-    svgrPlugin(),
-    dynamicImport(),
-  ],
-  build: {
-    rollupOptions: {
-      plugins: [dynamicImportVars()],
     },
-  },
+  }
 })
