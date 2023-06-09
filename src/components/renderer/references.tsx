@@ -29,7 +29,6 @@ export default function References() {
               [{index + 1}]
             </code>
             &nbsp;{text}&nbsp;:
-            <br />
             <i>{href}</i>
             <br />
           </React.Fragment>

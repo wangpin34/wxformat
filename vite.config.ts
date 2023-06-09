@@ -7,7 +7,16 @@ import viteTsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), viteTsconfigPaths(), svgrPlugin(), dynamicImport()],
+  plugins: [
+    react({
+      babel: {
+        plugins: ['styled-components'],
+      },
+    }),
+    viteTsconfigPaths(),
+    svgrPlugin(),
+    dynamicImport(),
+  ],
   build: {
     rollupOptions: {
       plugins: [dynamicImportVars()],

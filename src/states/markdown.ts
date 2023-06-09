@@ -2,6 +2,11 @@ import { atom, selector } from 'recoil'
 import readme from 'constants/readme'
 import { isExternal } from 'utils/link'
 
+export const initialMarkdownState = atom<string>({
+  key: 'initialMarkdownState',
+  default: readme,
+})
+
 export const markdownState = atom<string>({
   key: 'markdownState',
   default: readme,
@@ -18,7 +23,8 @@ const linkRegExp = /(?<!!)\[([^\[\]]+)\]\(([^\(\)]*)\)/gi
 export const linksState = selector<LinkProps[]>({
   key: 'linksState',
   get: ({ get }) => {
-    const array = Array.from(get(markdownState).matchAll(linkRegExp)).map(([, text, href]) => ({ text, href }))
+    const markdown = get(markdownState)
+    const array = Array.from(markdown.matchAll(linkRegExp)).map(([, text, href]) => ({ text, href }))
     const indexMap = new Map<string, number>()
     array.map(({ href }, index) => ({ href, index })).forEach(({ href, index }) => indexMap.has(href) || indexMap.set(href, index))
     return array.filter(({ href }, index) => indexMap.get(href) === index)

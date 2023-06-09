@@ -51,16 +51,7 @@ export default function Renderer() {
   const children = useMemo(() => (markdown ? processor.processSync(markdown).result.props.children : ''), [markdown])
 
   return (
-    <div
-      id={id}
-      //contentEditable
-      className="box-border"
-      style={{
-        backgroundColor: '#fff',
-        padding: '40px',
-        width: 375,
-      }}
-    >
+    <div id={id} className="max-w-full p-6 shadow-lg bg-white">
       {children}
       <References />
     </div>

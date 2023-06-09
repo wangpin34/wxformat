@@ -1,60 +1,56 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 //@ts-ignore
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/markdown/markdown.js'
 import 'codemirror/theme/material.css'
-import { markdownState } from 'states/markdown'
-import { EditorTheme } from 'states/preferences/editor'
+import { markdownState, initialMarkdownState } from 'states/markdown'
 import './editor.css'
 
 interface Props {
-  theme: EditorTheme
   fontSize?: number
 }
 
-function Editor({ theme, fontSize = 14 }: Props) {
+function Editor({ fontSize = 14 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
-  const [editor, setEditor] = useState<any>(null)
-  const [markdown, setMarkdown] = useRecoilState(markdownState)
-  const [initialValue] = useState(markdown)
+  const editorRef = useRef<CodeMirror.Editor>()
+  const initialMarkdown = useRecoilValue(initialMarkdownState)
+  const setMarkdown = useSetRecoilState(markdownState)
+  const [initialValue] = useState(initialMarkdown)
+
   const handleChange = useCallback(
-    instance => {
-      setMarkdown(instance.getValue())
+    (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChange) => {
+      const next = instance.getDoc().getValue()
+      setMarkdown(next)
     },
     [setMarkdown]
   )
 
   useEffect(() => {
-    if (ref.current) {
-      if (!editor) {
-        const editor = CodeMirror(ref.current, {
-          mode: {
-            name: 'markdown',
-            highlightFormatting: true,
-          },
-          theme: 'material',
-          value: initialValue, // not works, why?
-          tabSize: 2,
-        })
-        editor.on('change', handleChange)
-        editor.getDoc().setValue(initialValue)
-        setEditor(editor)
-
-        return () => {
-          editor.off('change', handleChange)
-        }
-      }
-    }
-  }, [ref, editor, handleChange, initialValue])
+    editorRef.current ? editorRef.current.getDoc().setValue(initialMarkdown) : null
+  }, [initialMarkdown])
 
   useEffect(() => {
-    if (editor && theme) {
-      editor?.setOption('theme', theme)
-      import(`codemirror/theme/${theme}.css`)
+    if (ref.current && !editorRef.current) {
+      const editor = CodeMirror(ref.current, {
+        mode: {
+          name: 'markdown',
+          highlightFormatting: true,
+        },
+        theme: 'material',
+        value: initialValue,
+        tabSize: 2,
+      })
+      console.log(`registered change handler on codemirror editor`)
+      editor.on('change', handleChange)
+      editorRef.current = editor
+
+      return () => {
+        editor.off('change', handleChange)
+      }
     }
-  }, [editor, theme])
+  }, [handleChange, initialValue])
 
   return (
     <div
