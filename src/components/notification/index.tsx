@@ -32,7 +32,7 @@ export default function NotificationMgmt() {
 
   return (
     <div>
-      <div className="toast">
+      <div className="toast toast-center">
         {notifications?.map(n => (
           <NotificationItem notification={n} key={n.id} />
         ))}
