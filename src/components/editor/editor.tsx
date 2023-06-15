@@ -4,9 +4,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/markdown/markdown.js'
-import 'codemirror/theme/material.css'
-import { markdownState, initialMarkdownState } from 'states/markdown'
+import 'codemirror/theme/paraiso-light.css'
+import { initialMarkdownState, markdownState } from 'states/markdown'
 import './editor.css'
+
+const THEME = 'paraiso-light'
 
 interface Props {
   fontSize?: number
@@ -38,7 +40,7 @@ function Editor({ fontSize = 14 }: Props) {
           name: 'markdown',
           highlightFormatting: true,
         },
-        theme: 'material',
+        theme: THEME,
         value: initialValue,
         tabSize: 2,
       })
