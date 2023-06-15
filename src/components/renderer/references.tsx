@@ -29,7 +29,14 @@ export default function References() {
               [{index + 1}]
             </code>
             &nbsp;{text}&nbsp;:
-            <i>{href}</i>
+            <a
+              href={href}
+              css={`
+                word-break: break-all;
+              `}
+            >
+              {href}
+            </a>
             <br />
           </React.Fragment>
         ))}

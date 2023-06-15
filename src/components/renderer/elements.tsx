@@ -1,8 +1,8 @@
 import React from 'react'
-import { css } from 'styled-components'
-import { isExternal } from 'utils/link'
 import { useRecoilValue } from 'recoil'
 import { referLinksState } from 'states/markdown'
+import { css } from 'styled-components'
+import { isExternal } from 'utils/link'
 
 function useReferLinkIndex(href: string) {
   const links = useRecoilValue(referLinksState)
@@ -59,6 +59,7 @@ function CodeBlock({ children }: ComponentProps) {
         line-height: 26px;
         font-size: 14px;
         padding: 1em;
+        overflow: auto;
       `}
     >
       <code>{code}</code>
@@ -339,4 +340,4 @@ function Ul({ children }: ComponentProps) {
   )
 }
 
-export { P, H1, H2, CodeBlock, InlineCode, A, Blockquote, ReferLink, Table, Ol, Ul }
+export { A, Blockquote, CodeBlock, H1, H2, InlineCode, Ol, P, ReferLink, Table, Ul }
