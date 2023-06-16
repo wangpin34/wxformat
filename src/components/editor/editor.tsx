@@ -11,10 +11,6 @@ import './editor.css'
 
 const THEME = 'wx'
 
-interface Props {
-  fontSize?: number
-}
-
 function Editor() {
   const ref = useRef<HTMLDivElement>(null)
   const editorRef = useRef<CodeMirror.Editor>()

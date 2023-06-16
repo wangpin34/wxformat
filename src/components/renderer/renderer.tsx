@@ -1,16 +1,16 @@
-import React, { useMemo, ComponentType } from 'react'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkSlug from 'remark-slug'
-import remarkToc from 'remark-toc'
-import remarkGfm from 'remark-gfm'
-import remarkRehype from 'remark-rehype'
+import React, { ComponentType, useMemo } from 'react'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeReact from 'rehype-react'
-import References from './references'
-import { markdownState } from 'states/markdown'
+import remarkGfm from 'remark-gfm'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import remarkSlug from 'remark-slug'
+import remarkToc from 'remark-toc'
 import { rendererState as rendererIDState } from 'states/id'
-import { P, H1, H2, CodeBlock, InlineCode, A, Blockquote, Table, Ol, Ul } from './elements'
+import { markdownState } from 'states/markdown'
+import { unified } from 'unified'
+import { A, Blockquote, CodeBlock, H1, H2, InlineCode, Ol, P, Table, Ul } from './elements'
+import References from './references'
 
 import 'highlight.js/styles/github.css'
 import { useRecoilValue } from 'recoil'
@@ -51,7 +51,13 @@ export default function Renderer() {
   const children = useMemo(() => (markdown ? processor.processSync(markdown).result.props.children : ''), [markdown])
 
   return (
-    <div id={id} className="max-w-full p-6 shadow-lg bg-white">
+    <div
+      id={id}
+      className="max-w-full p-6 shadow-lg bg-white"
+      css={`
+        font-family: Microsoft YaHei Light;
+      `}
+    >
       {children}
       <References />
     </div>

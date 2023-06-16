@@ -31,6 +31,8 @@ export default function References() {
             &nbsp;{text}&nbsp;:
             <a
               href={href}
+              target="__blank"
+              rel="noopener noreferrer"
               css={`
                 word-break: break-all;
               `}

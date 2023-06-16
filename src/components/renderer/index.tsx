@@ -1,9 +1,9 @@
-import { useCallback, MouseEventHandler } from 'react'
-import Renderer from './renderer'
+import { MouseEventHandler, useCallback } from 'react'
 import { useRecoilValue } from 'recoil'
-import copyToClipboard from 'utils/copy-to-clipboard'
 import { rendererState as rendererIDState } from 'states/id'
 import { useAddNotification } from 'states/notification'
+import copyToClipboard from 'utils/copy-to-clipboard'
+import Renderer from './renderer'
 
 // interface ShadowProps {
 //   children: any
