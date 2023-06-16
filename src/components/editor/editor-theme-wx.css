@@ -1,0 +1,42 @@
+/*
+  Name:  wx     
+  Author:     Penn Wang (http://github.com/wangpin34)
+  Website:    http://github.com/wangpin34
+*/
+
+.cm-s-wx.CodeMirror {
+  font-family: Microsoft YaHei Light;
+  font-size: 12px;
+}
+
+.cm-s-wx.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  font-family: monospace;
+}
+
+.cm-s-wx .cm-link {
+  color: #ff3502;
+}
+.cm-s-wx .cm-string.cm-url {
+  color: #ff3502;
+}
+
+.cm-s-wx .cm-formatting-code.cm-comment {
+  color: #ff3502;
+}
+
+.cm-s-wx .cm-formatting-code.cm-comment ~ .cm-comment {
+  color: #ff3502;
+  font-weight: bolder;
+}
+
+.cm-s-wx .cm-header {
+  font-weight: 500;
+}
+
+.cm-s-wx .cm-header-1 {
+  font-size: 20px;
+}
+.cm-s-wx .cm-header-2 {
+  font-size: 16px;
+}

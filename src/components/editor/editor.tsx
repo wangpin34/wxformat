@@ -4,17 +4,18 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/markdown/markdown.js'
-import 'codemirror/theme/paraiso-light.css'
+//import 'codemirror/theme/paraiso-light.css'
 import { initialMarkdownState, markdownState } from 'states/markdown'
+import './editor-theme-wx.css'
 import './editor.css'
 
-const THEME = 'paraiso-light'
+const THEME = 'wx'
 
 interface Props {
   fontSize?: number
 }
 
-function Editor({ fontSize = 14 }: Props) {
+function Editor() {
   const ref = useRef<HTMLDivElement>(null)
   const editorRef = useRef<CodeMirror.Editor>()
   const initialMarkdown = useRecoilValue(initialMarkdownState)
@@ -54,18 +55,7 @@ function Editor({ fontSize = 14 }: Props) {
     }
   }, [handleChange, initialValue])
 
-  return (
-    <div
-      ref={ref}
-      className="editor box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"
-      css={`
-        font-size: ${fontSize}px;
-        & > .CodeMirror {
-          height: 100%;
-        }
-      `}
-    ></div>
-  )
+  return <div ref={ref} className="editor box-border overflow-y-auto border-2 border-gray-500 hover:border-purple-500"></div>
 }
 
 export default Editor
