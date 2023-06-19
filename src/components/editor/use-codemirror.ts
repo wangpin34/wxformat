@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
+//@ts-ignore
 import { basicSetup } from 'codemirror'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
-import { tags } from '@codemirror/highlight'
+//@ts-ignore
+import { tags } from '@lezer/highlight'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
 import { javascript } from '@codemirror/lang-javascript' // import the default language
@@ -23,11 +25,13 @@ const myHighlight = HighlightStyle.define([
     fontWeight: 'bold',
   },
   {
+    //@ts-ignore
     tag: tags.heading2,
     fontSize: '1.4em',
     fontWeight: 'bold',
   },
   {
+    //@ts-ignore
     tag: tags.heading3,
     fontSize: '1.2em',
     fontWeight: 'bold',

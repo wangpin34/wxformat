@@ -1,6 +1,6 @@
 import useCodeMirror from './use-codemirror'
 import { EditorState } from '@codemirror/state'
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { initialMarkdownState, markdownState } from 'states/markdown'
 import './editor.css'
