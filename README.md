@@ -16,7 +16,8 @@
 使用以下工具制作了 Logo，以提升 PWA 模式下体验。
 
 - [💗adobe create logo](https://www.adobe.com/express/create/logo) 制作 Logo
-- [app icon maker](https://appiconmaker.co/) 生成不同尺寸副本
+- [app icon maker](https://appiconmaker.co/) 生成不同尺寸副本 logo
+- [convertio](https://convertio.co/) 生成 ico
 
 ## LICENSE
 
