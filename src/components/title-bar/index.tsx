@@ -49,7 +49,7 @@ export default function TitleBar() {
     <>
       <div className="navbar bg-base-100 fixed top-0">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">WeiXin format</a>
+          <a className="btn btn-ghost normal-case text-xl">WX format</a>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">

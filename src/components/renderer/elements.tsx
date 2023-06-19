@@ -14,10 +14,7 @@ function ReferLink({ children, href }: { children: any; href: string }) {
   return (
     <span
       css={`
-        text-align: left;
         color: #ff3502;
-        line-height: 1.5;
-        font-size: 16px;
       `}
     >
       {children}
@@ -33,16 +30,15 @@ interface ComponentProps {
 
 function InlineCode({ children }: ComponentProps) {
   return (
-    <strong
+    <code
       css={`
-        text-align: left;
+        background-color: #eeeeee;
+        padding: 0 4px;
         color: #ff3502;
-        font-size: 16px;
-        line-height: 1.5;
       `}
     >
       {children}
-    </strong>
+    </code>
   )
 }
 
@@ -72,7 +68,6 @@ function H1({ children }: ComponentProps) {
     <h1
       css={`
         text-align: center;
-        color: #3f3f3f;
         line-height: 1,
         font-size: 24px;
         margin: 80px 0 40px 0;
@@ -89,11 +84,11 @@ function H2({ children }: ComponentProps) {
     <h2
       css={`
         text-align: left;
-        color: #3f3f3f;
+
         line-height: 1.5;
         font-size: 18px;
         margin: 40px 0 20px 0;
-        font-weight: bold;
+        font-weight: normal;
       `}
     >
       {children}
@@ -111,10 +106,7 @@ function A({ children, href }: ComponentProps & { href: string }) {
       rel="noreferrer"
       target="_blank"
       css={`
-        text-align: left;
         color: #ff3502;
-        line-height: 1.5;
-        font-size: 16px;
       `}
     >
       {children}
@@ -128,8 +120,6 @@ function Blockquote({ children }: ComponentProps) {
       css={`
         text-align: left;
         color: rgb(91, 91, 91);
-        line-height: 1.5;
-        font-size: 16px;
         margin: 20px 0 20px 0;
         padding: 1px 0 1px 10px;
         background: rgba(158, 158, 158, 0.1);
@@ -145,12 +135,10 @@ function P({ children }: ComponentProps) {
   return (
     <p
       css={`
-      text-align: left;
-      color: #3f3f3f;
-      line-height: 1.6,
-      font-size: 16px;
-      margin: 20px 0 20px 0;
-    `}
+        text-align: left;
+
+        margin: 20px 0 20px 0;
+      `}
     >
       {children}
     </p>
@@ -186,9 +174,6 @@ const tableStyles: StyleTree = {
     thead: {
       style: css`
         text-align: left;
-        color: #3f3f3f;
-        line-height: 1.5;
-        font-size: 16px;
         background-color: rgba(0, 0, 0, 0.05);
       `,
       children: {
@@ -197,7 +182,6 @@ const tableStyles: StyleTree = {
           children: {
             th: {
               style: css`
-                font-size: 80%;
                 border: 1px solid #dfdfdf;
                 padding: 4px 8px;
               `,
@@ -209,16 +193,12 @@ const tableStyles: StyleTree = {
     tbody: {
       style: css`
         text-align: left;
-        color: #3f3f3f;
-        line-height: 1.5;
-        font-size: 16px;
       `,
       children: {
         tr: {
           children: {
             td: {
               style: css`
-                font-size: 80%;
                 border: 1px solid #dfdfdf;
                 padding: 4px 8px;
               `,
@@ -280,9 +260,7 @@ function getItems(children: any[]) {
 
 const listStyles = css`
   text-align: left;
-  color: #3f3f3f;
-  line-height: 1.5;
-  font-size: 16px;
+
   margin: 20px 0 20px 0;
   padding-left: 20px;
   list-style: initial;
@@ -303,8 +281,6 @@ function Ol({ children }: ComponentProps) {
           css={`
             text-align: left;
             color: #352a2a;
-            line-height: 1.5;
-            font-size: 16px;
           `}
         >
           {child.props.children}
@@ -329,8 +305,6 @@ function Ul({ children }: ComponentProps) {
           css={`
             text-align: left;
             color: #352a2a;
-            line-height: 1.5;
-            font-size: 16px;
           `}
         >
           {child.props.children}

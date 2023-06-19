@@ -11,9 +11,9 @@ import { markdownState } from 'states/markdown'
 import { unified } from 'unified'
 import { A, Blockquote, CodeBlock, H1, H2, InlineCode, Ol, P, Table, Ul } from './elements'
 import References from './references'
-
 import 'highlight.js/styles/github.css'
 import { useRecoilValue } from 'recoil'
+import './index.css'
 
 const processor = unified()
   .use(remarkParse)
@@ -21,7 +21,14 @@ const processor = unified()
   .use(remarkSlug)
   .use(remarkToc)
   .use(remarkRehype)
-  .use(rehypeHighlight)
+  .use(rehypeHighlight, {
+    ignoreMissing: true,
+    aliases: {
+      typescript: ['ts'],
+      javascript: ['js'],
+      markdown: ['md'],
+    },
+  })
   .use(rehypeReact, {
     createElement: React.createElement,
     components: {
@@ -51,13 +58,7 @@ export default function Renderer() {
   const children = useMemo(() => (markdown ? processor.processSync(markdown).result.props.children : ''), [markdown])
 
   return (
-    <div
-      id={id}
-      className="max-w-full p-6 shadow-lg bg-white"
-      css={`
-        font-family: Microsoft YaHei Light;
-      `}
-    >
+    <div id={id} className="max-w-full p-6 shadow-lg bg-white preview">
       {children}
       <References />
     </div>
