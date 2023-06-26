@@ -1,5 +1,26 @@
-import Editor from './editor-v2'
+import useCodeMirror from './use-codemirror'
+import { EditorState } from '@codemirror/state'
+import { useCallback, useEffect } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { initialMarkdownState, markdownState } from 'states/markdown'
+import './editor.css'
 
-export default function ConfiguredEditor() {
-  return <Editor />
+function Editor() {
+  const setMarkdown = useSetRecoilState(markdownState)
+  const initialMarkdown = useRecoilValue(initialMarkdownState)
+  const handleChange = useCallback((state: EditorState) => setMarkdown(state.doc.toString()), [setMarkdown])
+  const [refContainer, editorView] = useCodeMirror<HTMLDivElement>({
+    initialDoc: initialMarkdown,
+    onChange: handleChange,
+  })
+
+  useEffect(() => {
+    if (editorView) {
+      editorView.dispatch({ changes: { from: 0, to: editorView.state.doc.length, insert: initialMarkdown } })
+    }
+  }, [editorView, initialMarkdown])
+
+  return <div className="editor-wrapper" ref={refContainer}></div>
 }
+
+export default Editor

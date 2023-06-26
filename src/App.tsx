@@ -11,8 +11,12 @@ function App() {
       <div className="h-screen max-h-screen">
         <TitleBar />
         <div className="h-screen max-h-screen pt-[68px] xl:container mx-auto  grid grid-cols-2 gap-8">
-          <Editor />
-          <Renderer />
+          <div className="max-h-full overflow-auto">
+            <Editor />
+          </div>
+          <div className="max-h-full overflow-auto" s>
+            <Renderer />
+          </div>
         </div>
         <NotificationMgmt />
       </div>
