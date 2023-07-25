@@ -28,9 +28,10 @@ interface ComponentProps {
   props?: any
 }
 
-function InlineCode({ children }: ComponentProps) {
+function InlineCode({ children, ...rest }: ComponentProps) {
   return (
     <code
+      {...rest}
       css={`
         background-color: #eeeeee;
         padding: 0 4px;
@@ -42,11 +43,12 @@ function InlineCode({ children }: ComponentProps) {
   )
 }
 
-function CodeBlock({ children }: ComponentProps) {
+function CodeBlock({ children, ...rest }: ComponentProps) {
   const { children: code, className: language } = children[0].props
   return (
     <pre
       data-language={language}
+      {...rest}
       css={`
         background-color: rgba(0, 0, 0, 0.03);
         border: 1px solid #f0f0f0;
@@ -63,9 +65,10 @@ function CodeBlock({ children }: ComponentProps) {
   )
 }
 
-function H1({ children }: ComponentProps) {
+function H1({ children, ...rest }: ComponentProps) {
   return (
     <h1
+      {...rest}
       css={`
         text-align: center;
         line-height: 1,
@@ -79,9 +82,10 @@ function H1({ children }: ComponentProps) {
   )
 }
 
-function H2({ children }: ComponentProps) {
+function H2({ children, ...rest }: ComponentProps) {
   return (
     <h2
+      {...rest}
       css={`
         text-align: left;
 
@@ -96,7 +100,7 @@ function H2({ children }: ComponentProps) {
   )
 }
 
-function A({ children, href }: ComponentProps & { href: string }) {
+function A({ children, href, ...rest }: ComponentProps & { href: string }) {
   return isExternal(href) ? (
     <ReferLink href={href}>{children}</ReferLink>
   ) : (
@@ -105,6 +109,7 @@ function A({ children, href }: ComponentProps & { href: string }) {
       title={children}
       rel="noreferrer"
       target="_blank"
+      {...rest}
       css={`
         color: #ff3502;
       `}
@@ -114,9 +119,10 @@ function A({ children, href }: ComponentProps & { href: string }) {
   )
 }
 
-function Blockquote({ children }: ComponentProps) {
+function Blockquote({ children, ...rest }: ComponentProps) {
   return (
     <blockquote
+      {...rest}
       css={`
         text-align: left;
         color: rgb(91, 91, 91);
@@ -126,14 +132,15 @@ function Blockquote({ children }: ComponentProps) {
         border-left: 3px solid rgb(158, 158, 158);
       `}
     >
-      <p>{children}</p>
+      {children}
     </blockquote>
   )
 }
 
-function P({ children }: ComponentProps) {
+function P({ children, ...rest }: ComponentProps) {
   return (
     <p
+      {...rest}
       css={`
         text-align: left;
 
@@ -266,9 +273,10 @@ const listStyles = css`
   list-style: initial;
 `
 
-function Ol({ children }: ComponentProps) {
+function Ol({ children, ...rest }: ComponentProps) {
   return (
     <ol
+      {...rest}
       css={`
         ${listStyles}
         list-style: decimal;
@@ -290,9 +298,10 @@ function Ol({ children }: ComponentProps) {
   )
 }
 
-function Ul({ children }: ComponentProps) {
+function Ul({ children, ...rest }: ComponentProps) {
   return (
     <ul
+      {...rest}
       css={`
         ${listStyles}
         list-style: initial;
