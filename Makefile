@@ -1,9 +1,11 @@
 PATH := ./node_modules/.bin:${PATH}
 
-.PHONY: dev build
+.PHONY: dev start build
 
 dev:
-	craco start
+	vite
+
+start: dev
 
 build:
-	craco build
+	tsc && vite build
