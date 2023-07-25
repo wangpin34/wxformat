@@ -6,6 +6,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkSlug from 'remark-slug'
 import remarkToc from 'remark-toc'
+import { handlers } from 'utils/rehype-handlers/handlers'
 import { rendererState as rendererIDState } from 'states/id'
 import { markdownState } from 'states/markdown'
 import { unified } from 'unified'
@@ -20,7 +21,10 @@ const processor = unified()
   .use(remarkGfm)
   .use(remarkSlug)
   .use(remarkToc)
-  .use(remarkRehype)
+  .use(remarkRehype, {
+    //@ts-ignore
+    handlers,
+  })
   .use(rehypeHighlight, {
     ignoreMissing: true,
     aliases: {
