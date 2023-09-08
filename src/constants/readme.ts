@@ -1,66 +1,50 @@
-const readme = `# 2023/03/03: 如何为 NextJS 静态页面做鉴权保护？
-# 背景
-我有一个文档网站，底层技术用的是 \`NextJS\`，所有页面都是 \`build time\` 生成，最终都是静态页面。我想要实现这样的效果：
-1. 当用户没有登录时，跳转到 sign in 页面
-2. 当登录成功时，跳转到之前请求的配置。
+const readme = `# 关于
+Markdown For Weixin 是一款用于生成兼容微信公众号图文素材内容的 Markdown 编辑器。它的特点是：
+* 支持 [GitHub Flavored Markdown](https://github.github.com/gfm/)
+* 站外链接支持（作为文章参考链接）
+* 代码高亮
+# Markdown 语法
+如果你不熟悉 Markdown 或者 GitHub Flavored Markdown，可以参考下面的示例快速了解基本的 Markdown 书写方法。
 
-假设用户起初访问的是 /welcome，因为没有登录，所以跳转到 /sign_in?redirect=welcome。登录成功，则跳转到 /welcome 页面。
+# 这是一级标题
+## 这是二级标题
 
-# 不太理想的尝试
-对于 Auth ，NextJS 官网给了两种思路。第一种，页面load到浏览器后，用浏览器 js 判定登录状态和跳转。第二种，用 server page 判定登录状态和跳转。
-第一种方案，实现比较简单，问题是 page props 会先 load 到页面，再判定登录状态和跳转。存在敏感数据泄露的可能，不能满足数据保护的要求。
-第二种方案，实现稍微要复杂一些，也能达到数据保护的目的。但是相应的，会失去静态页面的便利性和安全性。得不偿失。
+這是文字樣式：*斜體*,**加粗**, \`高亮\`, ~刪除~。
 
-# 为什么不定制 NextJS Server
-通过替换 NextJS 标准 server，加入拦截逻辑([Custom Server](https://nextjs.org/docs/advanced-features/custom-server))，也可以做到判定登录，以及跳转，官网中的示例表明这是一种可行的做法。但这是有代价的，对我来说非常重要的 static gen 功能会得到削弱（具体数值没测试过）
-> Before deciding to use a custom server, please keep in mind that it should only be used when the integrated router of Next.js can't meet your app requirements. A custom server will remove important performance optimizations, like serverless functions and [Automatic Static Optimization](https://nextjs.org/docs/advanced-features/automatic-static-optimization).
+> 这是引用，可以在这里添加引用的内容，比如名人名言，或是自己之前的某些文字，等等。
 
-所以，思考再三，我决定跳出 NextJS ，寻找一种更加简便的办法：它应该足够解耦，不需要修改 NextJS 的 server，或者 page generation。这并不需要花费很多力气，现在毕竟不是互联网的蛮荒时期，啥都没有。我很快就找到了自己的目标： Nginx。
+## 下面是无序列表
+* 这是列表项 1
+* 这是列表项 2
+* 这是列表项 3
 
-# Nginx
-首先，NextJS 这里准备一个 auth api，比如 /api/auth，用来判定 http 请求携带的 cookie 是否包含合法可用的 token。
-然后，通过 Nginx 的 [auth_request_module](https://nginx.org/en/docs/http/ngx_http_auth_request_module.html#auth_request)，拦截请求，转发给 /api/auth 处理，然后根据返回状态码，跳转到 sign_in 或者其他页面。
-以下是 Nginx 的配置(忽略 server 的其他无关主题的配置）。 注：http://localhost:3030 是 NextJS App 的地址。
+## 下面是有序列表
+1. 这是列表项
+2. 这是列表项
+3. 这是列表项
+
+## 链接和图片
+
+![unsplash](https://images.unsplash.com/photo-1535957998253-26ae1ef29506?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1936&q=80)
+
+
+Photo by [Olena Bohovyk](https://unsplash.com/@olenkasergienko?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/dIMJWLx1YbE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+也支持 html 内容：
+Photo by <a href="https://unsplash.com/@olenkasergienko?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Olena Bohovyk</a> on <a href="https://unsplash.com/photos/dIMJWLx1YbE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
+## 表格
+|成績表(姓名）|語文|數學|
+|------------|----|---|
+|李白|100|10|
+|杜甫|99|68|  
+
+## 代碼塊
+\`\`\`javascript
+function Greetings() {
+  alert('Hello World!');
+}
 \`\`\`
-  # 静态内容请求直接转发给 NextJS，并且设定 1 year cache
-  location ~* \.(gif|jpg|jpeg|svg|png|ico|woff|woff2|js|css|json|yaml)$ {
-    expires 1y;
-    add_header Cache-Control "public";
-    proxy_pass              http://localhost:3030;
-  }
-  location ~* /(sign_in|sign_up) {
-    proxy_pass              http://localhost:3030;
-  }
-  location /  {
-    auth_request     /auth;
-    auth_request_set $auth_status $upstream_status;
-    error_page 401  =302 http://$http_host/signin?redirect=$request_uri;
-    proxy_pass              http://localhost:3030;
-  }
-  location = /auth {
-    internal;
-    proxy_pass              http://localhost:3030/api/auth;
-    proxy_pass_request_body off;
-    proxy_set_header        Content-Length "";
-    proxy_set_header        X-Original-URI $request_uri;
-  }
-\`\`\`
-简单解释一下：
-1. sign_in 和 sign_up 页面直接返回 NextJS App 的页面，不做鉴权。
-2. 其他页面进入鉴权模块 auth_request，这里 /auth 表示负责鉴权的 uri。
-3. /auth 这里，会将请求转交给 NextJS 的 /api/auth 接口处理。
-4. 当前一步结束， error_page 会检测之前（/auth）处理的结果 http status 是否为 401，是的话，返回 302 指向 sign_in 页面。注意这里使用了很多[内置参数](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#variables) ，
-5. 如果 http status 不是 401，则继续由 Nginx App 提供页面内容。
-
-# 结论
-NextJS 本身无法兼顾静态和服务端鉴权，此时，可以将鉴权交由 Nginx 负责，通过它的 auth request 模块来转发请求，处理鉴权结果。
-参考资料：
-* [Module ngx_http_auth_request_module](https://nginx.org/en/docs/http/ngx_http_auth_request_module.html)
-* [Module ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html)
-
-ps. Nginx 的 tag 居然是存在的，这证明之前也写过 Nginx 相关的东西。感觉每次都是 Nginx 救场，哈哈。
-
-原文链接: https://github.com/wangpin34/blog/issues/129
 `
 
 export default readme

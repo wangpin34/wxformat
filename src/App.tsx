@@ -27,15 +27,51 @@ function App() {
 
         let desiredScrollTop = -1
         const children = previewContainer.querySelectorAll('.preview > [data-startline]')
+
+        let last = null
+        let lastMinOffset = null
         for (const child of children) {
           const start = child.getAttribute('data-startline')
           const end = child.getAttribute('data-endline')
 
-          if (start && end) {
-            const startNum = parseInt(start)
-            const endNum = parseInt(end)
+          let startNum = null
+          let endNum = null
+          let minOffset = null
+          if (start) {
+            startNum = parseInt(start)
+            minOffset = Math.abs(startNum - lineNumber)
+          }
+          if (end) {
+            endNum = parseInt(end)
+            if (minOffset !== null) {
+              minOffset = Math.min(Math.abs(endNum - lineNumber), minOffset)
+            } else {
+              minOffset = Math.abs(endNum - lineNumber)
+            }
+          }
 
-            if (startNum <= lineNumber && endNum >= lineNumber) {
+          console.log(child, `start:${start}, end:${end}`)
+
+          if (last !== null && lastMinOffset !== null && minOffset !== null && minOffset >= lastMinOffset) {
+            // scroll to the last element
+            console.log(`scroll to`, last)
+            let percent = 0
+            const start = last.getAttribute('data-startline')
+            const end = last.getAttribute('data-endline')
+            const startNum = parseInt(start!)
+            const endNum = parseInt(end!)
+            if (startNum !== endNum) {
+              percent = (lineNumber - startNum) / (endNum - startNum)
+            }
+            const styles = getComputedStyle(last)
+            const height = parseFloat(styles.height)
+            //@ts-ignore
+            desiredScrollTop = last.offsetTop + percent * height
+            break
+          } else {
+            if (startNum !== null && endNum !== null && startNum <= lineNumber && endNum >= lineNumber) {
+              console.log(`scroll to`, child)
+              //scroll to the current element
               let percent = 0
               if (startNum !== endNum) {
                 percent = (lineNumber - startNum) / (endNum - startNum)
@@ -47,6 +83,9 @@ function App() {
               break
             }
           }
+
+          last = child
+          lastMinOffset = minOffset
         }
         if (desiredScrollTop < 0) {
           return
@@ -141,7 +180,7 @@ function App() {
           <div className="max-h-full overflow-auto" id="editor-container">
             <Editor />
           </div>
-          <div className="max-h-full overflow-auto" id="preview-container">
+          <div className="max-h-full overflow-auto shadow-lg bg-white" id="preview-container">
             <Renderer />
           </div>
         </div>

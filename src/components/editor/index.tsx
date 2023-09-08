@@ -20,7 +20,7 @@ function Editor() {
     }
   }, [editorView, initialMarkdown])
 
-  return <div className="editor-wrapper" ref={refContainer}></div>
+  return <div className="editor-wrapper h-full" ref={refContainer}></div>
 }
 
 export default Editor

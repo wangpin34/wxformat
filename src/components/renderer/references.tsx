@@ -6,6 +6,9 @@ import { H2 } from './elements'
 export default function References() {
   const referLinks = useRecoilValue(referLinksState)
 
+  if (referLinks.length < 1) {
+    return null
+  }
   return (
     <>
       <H2>References</H2>
@@ -28,7 +31,7 @@ export default function References() {
             >
               [{index + 1}]
             </code>
-            &nbsp;{text}&nbsp;:
+            &nbsp;{text}&nbsp;:&nbsp;
             <a
               href={href}
               target="__blank"

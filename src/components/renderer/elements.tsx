@@ -71,7 +71,7 @@ function H1({ children, ...rest }: ComponentProps) {
       {...rest}
       css={`
         text-align: center;
-        line-height: 1,
+        line-height: 1;
         font-size: 24px;
         margin: 80px 0 40px 0;
         font-weight: normal;
@@ -323,4 +323,8 @@ function Ul({ children, ...rest }: ComponentProps) {
   )
 }
 
-export { A, Blockquote, CodeBlock, H1, H2, InlineCode, Ol, P, ReferLink, Table, Ul }
+function Img(props: ComponentProps) {
+  return <img {...props} />
+}
+
+export { A, Blockquote, CodeBlock, H1, H2, InlineCode, Ol, P, ReferLink, Table, Ul, Img }
