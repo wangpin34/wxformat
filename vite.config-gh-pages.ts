@@ -6,8 +6,9 @@ import svgrPlugin from 'vite-plugin-svgr'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
-export default defineConfig(() => {
+export default defineConfig(({ command }) => {
   return {
+    base: command === 'serve' ? '/' : '/wxformat',
     plugins: [
       react({
         babel: {
