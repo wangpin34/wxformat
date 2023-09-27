@@ -1,15 +1,16 @@
-import { atom, selector } from 'recoil'
 import readme from 'constants/readme'
+import { atom, selector } from 'recoil'
 import { isExternal } from 'utils/link'
+import { read } from 'utils/markdown-storage'
 
 export const initialMarkdownState = atom<string>({
   key: 'initialMarkdownState',
-  default: readme,
+  default: read() || readme,
 })
 
 export const markdownState = atom<string>({
   key: 'markdownState',
-  default: readme,
+  default: read() || readme,
 })
 
 interface LinkProps {

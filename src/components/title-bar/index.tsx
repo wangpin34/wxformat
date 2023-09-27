@@ -1,22 +1,24 @@
 import React, { useCallback, useRef } from 'react'
-import { markdownState, initialMarkdownState } from 'states/markdown'
-import { useSetRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilCallback, useSetRecoilState } from 'recoil'
+import { markdownState } from 'states/markdown'
 import { useAddNotification } from 'states/notification'
 import { downloadText } from 'utils/download'
 
 function DownloadMarkdown() {
   const addNotification = useAddNotification()
-  const markdown = useRecoilValue(markdownState)
-  const onDownloadMarkdown = useCallback(() => {
-    downloadText(markdown, 'markdown.md', 'text/plain')
-    addNotification({ type: 'success', text: '下载完成' })
-  }, [markdown, addNotification])
+  const onDownloadMarkdown = useRecoilCallback(
+    ({ snapshot }) => async () => {
+      const markdown = snapshot.getLoadable(markdownState).getValue()
+      downloadText(markdown, 'markdown.md', 'text/plain')
+      addNotification({ type: 'success', text: '下载完成' })
+    },
+    [addNotification]
+  )
   return <a onClick={onDownloadMarkdown}>下载 Markdown</a>
 }
 
 export default function TitleBar() {
   const addNotification = useAddNotification()
-  const setInitialMarkdown = useSetRecoilState(initialMarkdownState)
   const setMarkdown = useSetRecoilState(markdownState)
   const markdownImportRef = useRef<HTMLInputElement>(null)
   const handleImportMarkdown = useCallback(() => {
@@ -33,7 +35,7 @@ export default function TitleBar() {
         'load',
         () => {
           addNotification({ type: 'success', text: '导入成功' })
-          setInitialMarkdown(reader.result as string)
+          setMarkdown(reader.result as string)
         },
         false
       )
