@@ -18,5 +18,8 @@
   },
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[hosts]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }

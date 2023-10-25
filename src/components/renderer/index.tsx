@@ -4,6 +4,7 @@ import { rendererState as rendererIDState } from 'states/id'
 import { useAddNotification } from 'states/notification'
 import copyToClipboard from 'utils/copy-to-clipboard'
 import Renderer from './renderer'
+import Toolbar from './tool-bar'
 
 // interface ShadowProps {
 //   children: any
@@ -41,6 +42,7 @@ export default function RendererWrapper() {
   return (
     // <div className="flex flex-col items-center overflow-y-auto">
     <>
+      <Toolbar />
       <Renderer />
       <button className="btn btn-primary fixed right-1 bottom-1" onClick={handleCopy}>
         复制文本

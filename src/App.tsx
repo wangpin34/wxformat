@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
 import Editor from 'components/editor'
+import NotificationMgmt from 'components/notification'
 import Renderer from 'components/renderer'
 import TitleBar from 'components/title-bar'
+import { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
-import NotificationMgmt from 'components/notification'
 
 function App() {
   useEffect(() => {
