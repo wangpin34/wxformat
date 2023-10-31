@@ -39,7 +39,6 @@ export default function RendererWrapper() {
   }, [id])
 
   return (
-    // <div className="flex flex-col items-center overflow-y-auto">
     <>
       <Renderer />
       <button className="btn btn-primary fixed right-1 bottom-1" onClick={handleCopy}>

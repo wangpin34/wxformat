@@ -1,21 +1,23 @@
+import 'highlight.js/styles/github.css'
 import React, { ComponentType, useMemo } from 'react'
+import { useRecoilValue } from 'recoil'
 import rehypeHighlight from 'rehype-highlight'
-import rehypeReact from 'rehype-react'
 import rehypeParse from 'rehype-parse'
+import rehypeReact from 'rehype-react'
+import rehypeStringify from 'rehype-stringify'
 import remarkGfm from 'remark-gfm'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
 import remarkSlug from 'remark-slug'
-import { handlers } from 'utils/rehype-handlers/handlers'
 import { rendererState as rendererIDState } from 'states/id'
 import { markdownState } from 'states/markdown'
 import { unified } from 'unified'
-import { A, Blockquote, CodeBlock, H1, H2, InlineCode, Ol, P, Table, Ul, Img } from './elements'
-import References from './references'
-import 'highlight.js/styles/github.css'
-import { useRecoilValue } from 'recoil'
+import { handlers } from 'utils/rehype-handlers/handlers'
+import { A, Blockquote, CodeBlock, H1, H2, Img, InlineCode, Ol, P, Table, Ul } from './elements'
 import './index.css'
+import References from './references'
+import { previewerPreferencesState } from 'states/preferences'
+import { CSSProperties } from 'styled-components'
 
 const processor1 = unified()
   .use(remarkParse)
@@ -57,6 +59,7 @@ const processor2 = unified()
   })
 
 export default function Renderer() {
+  const preferences = useRecoilValue(previewerPreferencesState)
   const markdown = useRecoilValue(markdownState)
   const id = useRecoilValue(rendererIDState)
   //@ts-ignore
@@ -70,8 +73,16 @@ export default function Renderer() {
     return node
   }, [markdown])
 
+  const style = useMemo(
+    () => ({
+      '--font-size': `${preferences.fontSize}px`,
+      '--color': preferences.color,
+    }),
+    [preferences]
+  )
+
   return (
-    <div id={id} className="max-w-full p-6   preview">
+    <div id={id} className="max-w-full p-6  preview" style={style as CSSProperties}>
       {children}
       <References />
     </div>
