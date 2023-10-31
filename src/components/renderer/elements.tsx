@@ -71,9 +71,8 @@ function H1({ children, ...rest }: ComponentProps) {
       {...rest}
       css={`
         text-align: center;
-        line-height: 1;
         font-size: calc(var(--font-size) * 2);
-        margin: 80px 0 40px 0;
+        margin: 2em 0 1em 0;
         font-weight: normal;
       `}
     >
@@ -88,10 +87,8 @@ function H2({ children, ...rest }: ComponentProps) {
       {...rest}
       css={`
         text-align: left;
-
-        line-height: 1.5;
         font-size: calc(var(--font-size) * 1.5);
-        margin: 40px 0 20px 0;
+        margin: 2em 0 1em 0;
         font-weight: normal;
       `}
     >

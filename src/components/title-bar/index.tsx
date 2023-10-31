@@ -64,15 +64,15 @@ function CustomPreviewer() {
               <div className="py-4">
                 <div className="form-control w-full max-w-full">
                   <label className="label">
-                    <span className="label-text">字号（{watch('fontSize')}）</span>
+                    <span className="label-text">字号</span>
                   </label>
                   <input type="range" min={14} max={22} className="range" step="2" {...register('fontSize')} />
                   <div className="w-full flex justify-between text-xs px-2">
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
+                    <span>14</span>
+                    <span>16</span>
+                    <span>18</span>
+                    <span>20</span>
+                    <span>22</span>
                   </div>
                 </div>
                 <div className="form-control w-full max-w-full">
