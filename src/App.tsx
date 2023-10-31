@@ -4,6 +4,7 @@ import Renderer from 'components/renderer'
 import TitleBar from 'components/title-bar'
 import { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
+import Root from 'components/root'
 
 function App() {
   useEffect(() => {
@@ -174,18 +175,7 @@ function App() {
   return (
     //@ts-ignore
     <RecoilRoot>
-      <div className="h-screen max-h-screen">
-        <TitleBar />
-        <div className="h-screen max-h-screen pt-[68px] xl:container mx-auto  grid grid-cols-2 gap-8">
-          <div className="max-h-full overflow-auto" id="editor-container">
-            <Editor />
-          </div>
-          <div className="max-h-full overflow-auto shadow-lg bg-white" id="preview-container">
-            <Renderer />
-          </div>
-        </div>
-        <NotificationMgmt />
-      </div>
+      <Root />
     </RecoilRoot>
   )
 }

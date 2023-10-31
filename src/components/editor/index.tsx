@@ -1,8 +1,7 @@
 import { EditorState } from '@codemirror/state'
 import { useCallback, useEffect } from 'react'
-import { useRecoilCallback, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { markdownState } from 'states/markdown'
-import { write } from 'utils/markdown-storage'
 import './editor.css'
 import useCodeMirror from './use-codemirror'
 
@@ -13,18 +12,6 @@ function Editor() {
     initialDoc: markdown,
     onChange: handleChange,
   })
-
-  const saveDocToStorageCallback = useRecoilCallback(
-    ({ snapshot }) => async () => {
-      const markdown = snapshot.getLoadable(markdownState).getValue()
-      write(markdown)
-    },
-    []
-  )
-
-  useEffect(() => {
-    window.addEventListener('unload', saveDocToStorageCallback)
-  }, [saveDocToStorageCallback])
 
   useEffect(() => {
     if (editorView) {

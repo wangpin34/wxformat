@@ -14,7 +14,7 @@ function ReferLink({ children, href }: { children: any; href: string }) {
   return (
     <span
       css={`
-        color: #ff3502;
+        color: var(--color);
       `}
     >
       {children}
@@ -35,7 +35,7 @@ function InlineCode({ children, ...rest }: ComponentProps) {
       css={`
         background-color: #eeeeee;
         padding: 0 4px;
-        color: #ff3502;
+        color: var(--color);
       `}
     >
       {children}
@@ -54,8 +54,8 @@ function CodeBlock({ children, ...rest }: ComponentProps) {
         border: 1px solid #f0f0f0;
         color: #333;
         border-radius: 2;
-        line-height: 26px;
-        font-size: 14px;
+        line-height: 1.5;
+        font-size: var(--font-size);
         padding: 1em;
         overflow: auto;
       `}
@@ -72,7 +72,7 @@ function H1({ children, ...rest }: ComponentProps) {
       css={`
         text-align: center;
         line-height: 1;
-        font-size: 24px;
+        font-size: calc(var(--font-size) * 2);
         margin: 80px 0 40px 0;
         font-weight: normal;
       `}
@@ -90,7 +90,7 @@ function H2({ children, ...rest }: ComponentProps) {
         text-align: left;
 
         line-height: 1.5;
-        font-size: 18px;
+        font-size: calc(var(--font-size) * 1.5);
         margin: 40px 0 20px 0;
         font-weight: normal;
       `}
@@ -111,7 +111,7 @@ function A({ children, href, ...rest }: ComponentProps & { href: string }) {
       target="_blank"
       {...rest}
       css={`
-        color: #ff3502;
+        color: var(--color);
       `}
     >
       {children}

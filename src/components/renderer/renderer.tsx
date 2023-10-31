@@ -16,6 +16,8 @@ import { handlers } from 'utils/rehype-handlers/handlers'
 import { A, Blockquote, CodeBlock, H1, H2, Img, InlineCode, Ol, P, Table, Ul } from './elements'
 import './index.css'
 import References from './references'
+import { previewerPreferencesState } from 'states/preferences'
+import { CSSProperties } from 'styled-components'
 
 const processor1 = unified()
   .use(remarkParse)
@@ -57,6 +59,7 @@ const processor2 = unified()
   })
 
 export default function Renderer() {
+  const preferences = useRecoilValue(previewerPreferencesState)
   const markdown = useRecoilValue(markdownState)
   const id = useRecoilValue(rendererIDState)
   //@ts-ignore
@@ -70,8 +73,16 @@ export default function Renderer() {
     return node
   }, [markdown])
 
+  const style = useMemo(
+    () => ({
+      '--font-size': `${preferences.fontSize}px`,
+      '--color': preferences.color,
+    }),
+    [preferences]
+  )
+
   return (
-    <div id={id} className="max-w-full p-6  preview">
+    <div id={id} className="max-w-full p-6  preview" style={style as CSSProperties}>
       {children}
       <References />
     </div>
