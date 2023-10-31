@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import type { PreviewerPreferences } from 'types/preferences'
 import { useRecoilCallback, useSetRecoilState, useRecoilState } from 'recoil'
-import { markdownState } from 'states/markdown'
+import { initialMarkdownState } from 'states/markdown'
 import classnames from 'classnames'
 import { useAddNotification } from 'states/notification'
 import { previewerPreferencesState } from 'states/preferences'
@@ -123,7 +123,7 @@ function CustomPreviewer() {
 
 export default function TitleBar() {
   const addNotification = useAddNotification()
-  const setMarkdown = useSetRecoilState(markdownState)
+  const setMarkdown = useSetRecoilState(initialMarkdownState)
   const markdownImportRef = useRef<HTMLInputElement>(null)
   const handleImportMarkdown = useCallback(() => {
     if (markdownImportRef.current) {
