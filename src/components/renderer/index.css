@@ -4,3 +4,8 @@
   line-height: 1.5;
   color: #3f3f3f;
 }
+
+.preview ::selection {
+  color: #eeeeee;
+  background-color: var(--color);
+}
