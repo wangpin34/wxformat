@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 //@ts-ignore
-import { basicSetup } from 'codemirror'
+import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { EditorState } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
-import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
+import { basicSetup } from 'codemirror'
 //@ts-ignore
-import { tags } from '@lezer/highlight'
+import { javascript } from '@codemirror/lang-javascript'; // import the default language
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
-import { javascript } from '@codemirror/lang-javascript' // import the default language
+import { tags } from '@lezer/highlight'
 import { solarizedLight } from 'cm6-theme-solarized-light'
 
 export const transparentTheme = EditorView.theme({
@@ -64,6 +64,7 @@ const useCodeMirror = <T extends Element>(props: Props): [React.MutableRefObject
         }),
         solarizedLight,
         syntaxHighlighting(myHighlight),
+        EditorView.lineWrapping,
         EditorView.updateListener.of(update => {
           if (update.changes) {
             onChange && onChange(update.state)
